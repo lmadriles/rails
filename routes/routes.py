@@ -17,7 +17,7 @@ def select_criteria(stations):
     """Retorna lista das estações a serem deletadas."""
     remover = stations[stations['points_geometry'].isna()]['estacao'].unique().tolist()
     importantes = station_manager.prioritize_station(stations)
-    print([x for x in remover if x in importantes])
+    #print([x for x in remover if x in importantes])
     remover = [x for x in remover if x not in importantes]
     remover.remove('V77')
       
@@ -65,11 +65,12 @@ def Routes():
     stations = station_manager.remove_stations(stations, remover)
     G = graph_utils.generate_graph(stations)
 
-    engine = connect_to_db('sqlite:///./data/processed/database.db')
+    origin_engine = connect_to_db('sqlite:///./data/processed/database.db')
     
     query = import_query('./routes/query_to_routes.sql')
-    fluxos_routes = pd.read_sql(query, engine)
+    query_fmt = query.format(date='2017-01-01')
+    fluxos_routes = pd.read_sql(query_fmt, origin_engine)
     
     fluxos_routes = create_route(G, fluxos_routes)
     # salve o fluxos_df no feature_store.db
-    fluxos_routes.to_sql('fluxos_rotas', engine, if_exists='replace', index=False)
+    fluxos_routes.to_sql('fluxos_rotas_2017', origin_engine, if_exists='replace', index=False)

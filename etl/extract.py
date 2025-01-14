@@ -5,25 +5,8 @@ import geopandas as gpd
 #%%
 
 # this will be the function that load all the different dataframes, and return a dictionary with all the dataframes
-def extract_data():
+def extract_data(file_paths):
     """Carrega os dataframes, filtra as colunas e as renomeia."""
-
-
-    # Define file paths
-    file_paths = {
-        'lines': r'./data/raw/shapefiles/Linha2024.shp',  #  EditorSQL-20231002-151029.xlsx
-        'map_station': r'./data/raw/tblEstacao.xlsx', # mapa query_mapa_estacao.xlsx
-        'map_rail': r'./data/raw/mapa_ferrovia.xlsx', # tblFerrovia.xlsx
-        'map_line': r'./data/raw/tblLinha.xlsx', # tblLinha.xlsx
-        'points': r"./data/raw/shapefiles/Estação2024.shp", # tblDREstacao.shp
-        'fluxos': r"./data/raw/ArqSIADEFluxoTransporteRealizado_07_01_25.csv", # ArqSIADEFluxoTransporteRealizado.csv
-        'intermed_mid4': r'./data/raw/tblFluxoTransporteTrecho.xlsx', # tblFluxoTransporteTrecho.xlsx
-        'map_flux': r'./data/raw/tblFluxoTransporte.xlsx', # tblFluxoTransporte.xlsx
-        'municipio': r'./data/raw/shapefiles/Municipio2024.shp',
-        'intermed_cafen': r'./data/raw/TrechoFerrovia.csv' # dados extraídos do saff (essa info não está mais lá, não deletar esse arquivo)
-
-    }
-
 
     # Load and process lines DataFrame
     lines = (gpd.read_file(file_paths['lines'])
@@ -120,5 +103,15 @@ def extract_data():
             }
 
 if __name__ == '__main__':
-    data_dict = extract_data()
-
+    data_dict = extract_data(file_paths = {
+        'lines': r'../data/raw/shapefiles/Linha2024.shp',
+        'map_station': r'../data/raw/tblEstacao.xlsx',
+        'map_rail': r'../data/raw/mapa_ferrovia.xlsx',
+        'map_line': r'../data/raw/tblLinha.xlsx',
+        'points': r"../data/raw/shapefiles/Estação2024.shp",
+        'fluxos': r"../data/raw/ArqSIADEFluxoTransporteRealizado_07_01_25.csv",
+        'intermed_mid4': r'./data/raw/tblFluxoTransporteTrecho.xlsx',
+        'map_flux': r'../data/raw/tblFluxoTransporte.xlsx',
+        'municipio': r'../data/raw/shapefiles/Municipio2024.shp',
+        'intermed_cafen': r'../data/raw/TrechoFerrovia.csv'
+    })

@@ -184,8 +184,6 @@ def transform_intermed(data_dict):
     intermed_mid4 = intermed_mid4[~intermed_mid4['id'].isin(intermed_cafen['id'])].reset_index(drop=True)
     intermed_mid4 = intermed_mid4[intermed_mid4['id'].isin(fluxos['id'])].reset_index(drop=True)
 
-    print(intermed_mid4[intermed_mid4['id']=='34264MRS'])
-    
 
     # sumarizar as informações de intermed_mid4 (precisa não ter estações mid)
     if intermed_mid4['mid_a'].isna().all() & intermed_mid4['mid_b'].isna().all() & intermed_mid4['mid_c'].isna().all() & intermed_mid4['mid_d'].isna().all():
@@ -217,5 +215,16 @@ def transform_data(data_dict):
 from .extract import extract_data
 
 if __name__=='__main__':
-    data_dict = extract_data()
+    data_dict = extract_data(file_paths = {
+        'lines': r'../data/raw/shapefiles/Linha2024.shp',  #  EditorSQL-20231002-151029.xlsx
+        'map_station': r'../data/raw/tblEstacao.xlsx', # mapa query_mapa_estacao.xlsx
+        'map_rail': r'../data/raw/mapa_ferrovia.xlsx', # tblFerrovia.xlsx
+        'map_line': r'../data/raw/tblLinha.xlsx', # tblLinha.xlsx
+        'points': r"../data/raw/shapefiles/Estação2024.shp", # tblDREstacao.shp
+        'fluxos': r"../data/raw/ArqSIADEFluxoTransporteRealizado_07_01_25.csv", # ArqSIADEFluxoTransporteRealizado.csv
+        'intermed_mid4': r'../data/raw/tblFluxoTransporteTrecho.xlsx', # tblFluxoTransporteTrecho.xlsx
+        'map_flux': r'../data/raw/tblFluxoTransporte.xlsx', # tblFluxoTransporte.xlsx
+        'municipio': r'../data/raw/shapefiles/Municipio2024.shp',
+        'intermed_cafen': r'../data/raw/TrechoFerrovia.csv' # dados extraídos do saff (essa info não está mais lá, não deletar esse arquivo)
+        })
     data_transformed = transform_data(data_dict)
