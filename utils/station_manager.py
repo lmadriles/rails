@@ -43,7 +43,8 @@ def sewing(slice_stations, lista_remover):
 
     # editar extensao
     for key, value in dct_indices.items():
-        slice_stations.loc[key, 'extensao'] += slice_stations.loc[value, 'extensao'].sum()
+        if key in slice_stations.index: # adicionei esse filtro mas não sei se vai remover corretamente as estações
+            slice_stations.at[key, 'extensao'] += slice_stations.loc[value, 'extensao'].sum()
 
     # remover linhas
     slice_stations = slice_stations.drop(index=indices).reset_index(drop=True)
@@ -61,10 +62,10 @@ def remove_stations(stations, lista_remover):
     linhas_sem_remocao = list(set(stations['linha'].unique().tolist()) - set(linhas_com_remocao))
 
     new_df = stations[stations['linha'].isin(linhas_sem_remocao)].copy()
-    
+   
         
     for linha in linhas_com_remocao:
-        slice_stations = stations[stations['linha'] == linha].sort_values(by=['linha','sequencia']).reset_index()
+        slice_stations = stations[stations['linha'] == linha].sort_values(by=['linha','sequencia']).reset_index(drop=True)
 
         linha_slice = sewing(slice_stations, lista_remover)
         new_df = pd.concat([new_df, linha_slice], ignore_index=True)
