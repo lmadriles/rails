@@ -86,8 +86,6 @@ def must_pass(G, points, return_route=True):
         return total_dist
 
 
-
-
 # %%
 # Projeções:
 def get_entrepatios(train, rail, sentido=False):

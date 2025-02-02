@@ -9,7 +9,7 @@ def run_etl():
         'map_rail': r'./data/raw/mapa_ferrovia.xlsx', # tblFerrovia.xlsx
         'map_line': r'./data/raw/tblLinha.xlsx', # tblLinha.xlsx
         'points': r"./data/raw/shapefiles/Estação2024.shp", # tblDREstacao.shp
-        'fluxos': r"./data/raw/ArqSIADEFluxoTransporteRealizado_07_01_25.csv", # ArqSIADEFluxoTransporteRealizado.csv
+        'fluxos': r"./data/raw/ArqSIADEFluxoTransporteRealizado_03_02_2025.csv", # ArqSIADEFluxoTransporteRealizado.csv
         'intermed_mid4': r'./data/raw/tblFluxoTransporteTrecho.xlsx', # tblFluxoTransporteTrecho.xlsx
         'map_flux': r'./data/raw/tblFluxoTransporte.xlsx', # tblFluxoTransporte.xlsx
         'municipio': r'./data/raw/shapefiles/Municipio2024.shp',

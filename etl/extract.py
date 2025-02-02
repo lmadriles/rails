@@ -109,7 +109,7 @@ if __name__ == '__main__':
         'map_rail': r'../data/raw/mapa_ferrovia.xlsx',
         'map_line': r'../data/raw/tblLinha.xlsx',
         'points': r"../data/raw/shapefiles/Estação2024.shp",
-        'fluxos': r"../data/raw/ArqSIADEFluxoTransporteRealizado_07_01_25.csv",
+        'fluxos': r"../data/raw/ArqSIADEFluxoTransporteRealizado_03_02_2025.csv",
         'intermed_mid4': r'./data/raw/tblFluxoTransporteTrecho.xlsx',
         'map_flux': r'../data/raw/tblFluxoTransporte.xlsx',
         'municipio': r'../data/raw/shapefiles/Municipio2024.shp',
