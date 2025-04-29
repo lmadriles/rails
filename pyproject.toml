@@ -12,6 +12,11 @@ geopandas = "^1.0.1"
 networkx = "^3.3"
 sqlalchemy = "^2.0.36"
 openpyxl = "^3.1.5"
+matplotlib = "^3.10.0"
+seaborn = "^0.13.2"
+folium = "^0.19.4"
+pyodbc = "^5.2.0"
+nltk = "^3.9.1"
 
 
 [tool.poetry.group.dev.dependencies]
