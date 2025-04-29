@@ -7,43 +7,41 @@ from itertools import pairwise
 def nodes_to_edges(df):
 
     # Verificar monotonicidade em cada grupo
-    for name, group in df.groupby('linha'):
-        if not group['sequencia'].is_monotonic_increasing:
-            print(f'sequencia not increasing in linha {name}')
+    for name, group in df.groupby('NomeLinha'):
+        if not group['NumeroSequencia'].is_monotonic_increasing:
+            print(f'Sequencia not increasing in Linha {name}')
             return None
     
     edges = df.copy()
-    edges['estacao_anterior'] = edges['estacao'].shift()
-    edges['geometry_anterior'] = edges['geometry'].shift() # essa tem que ser a point_geometry
-    edges = edges[edges['sequencia'] != 1].reset_index(drop=True)
-    edges['sequencia'] -= 1
-
+    edges['estacao_anterior'] = edges['CodigoTresLetrasEstacao'].shift()
+    #edges['geometry_anterior'] = edges['geometry'].shift() # essa tem que ser a point_geometry
+    edges = edges[edges['NumeroSequencia'] != 1].reset_index(drop=True)
+    edges['NumeroSequencia'] -= 1
 
     return edges
-
-
 
 def generate_graph(gdf):
     """Generate the NetworkX graph."""
 
 
-    nodes = gdf.drop_duplicates(subset=['estacao'], keep='first') # remover as duplicatas do query_stations
+    nodes = gdf.drop_duplicates(subset=['CodigoTresLetrasEstacao'], keep='first') # remover as duplicatas do query_stations
 
     # eliminar a necessidade de importar edges:
     edges = nodes_to_edges(gdf)
 
     G = nx.Graph()
-    G.add_nodes_from(nodes['estacao']) # nodes
-    node_attributes = nodes[['estacao', 'geometry']].set_index('estacao').to_dict(orient='index')
+    G.add_nodes_from(nodes['CodigoTresLetrasEstacao']) # nodes
+    node_attributes = nodes[['CodigoTresLetrasEstacao']].set_index('CodigoTresLetrasEstacao').to_dict(orient='index')
     nx.set_node_attributes(G, node_attributes) # atributo do nó
 
     
 
     # Edges
-    for index, row in edges.iterrows():
+    for _, row in edges.iterrows():
         source = row['estacao_anterior']
-        target = row['estacao']
-        metadata = {'weight': row['extensao'],'ferrovia': row['ferrovia'],'linha': row['linha'],'sequencia': row['sequencia']} 
+        target = row['CodigoTresLetrasEstacao']
+        metadata = {'weight': row['NumeroExtensao'],'ferrovia': row['SiglaFerrovia'],
+                    'linha': row['NomeLinha'],'sequencia': row['NumeroSequencia']} 
 
         # Verifica se o nó existe antes de adicioná-lo: 
         if source in G.nodes and target in G.nodes:

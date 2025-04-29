@@ -15,6 +15,8 @@ openpyxl = "^3.1.5"
 matplotlib = "^3.10.0"
 seaborn = "^0.13.2"
 folium = "^0.19.4"
+pyodbc = "^5.2.0"
+nltk = "^3.9.1"
 
 
 [tool.poetry.group.dev.dependencies]
